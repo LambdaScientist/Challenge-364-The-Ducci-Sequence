@@ -5,10 +5,12 @@ let ducci xs =
         (List.last xs) :: xs
         |> List.pairwise
         |> List.map (fun (x,y) -> x - y |> abs)
-    
+    let allZeros = List.forall ((=) 0)
+    let hasCycle = List.contains
+
     let rec ducci' acc =
         let xs' = acc |> List.head |> diff
-        if acc |> List.contains xs'
+        if allZeros xs' || hasCycle xs' acc
         then xs' :: acc
         else ducci' (xs' :: acc)
         
